@@ -1,0 +1,11 @@
+.Recipes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.Recipes__tags {
+    max-width: 100px;
+    white-space: normal;
+}
