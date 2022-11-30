@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { PlusSmallIcon } from "@heroicons/react/24/solid";
 import { RecipeData } from "../../../types";
-import { useActions, useAppSelector } from "../../../hooks/redux";
-import { selectRecipesModalList } from "../../../store/reducers/recipes/recipes-selectors";
+import { RecipesEnum } from "../../../store/reducers/recipes/recipes-types";
 
+interface ModalContentListProps {
+    modalList: RecipeData[];
+    addRecipe: (index: number) => { type: RecipesEnum; payload: number; };
+}
 
-const ModalContentList = () => {
-
-    const modalList = useAppSelector(selectRecipesModalList);
-    const {addRecipe} = useActions();
+const ModalContentList: FC<ModalContentListProps> = (props) => {
+    const {modalList, addRecipe} = props;
 
     return (
         <div className="max-w-lg mx-auto">
@@ -30,24 +31,7 @@ const ModalContentList = () => {
                     </svg>
                     <h2 className="mt-2 text-lg font-medium text-gray-900">Add recipes</h2>
                 </div>
-                <form action="src/components/Modal/ModalContent/ModalContentList#" className="mt-6 flex">
-                    <label htmlFor="email" className="sr-only">
-                        Enter recipe
-                    </label>
-                    <input
-                        type="text"
-                        name="recipe"
-                        id="recipe"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                        placeholder="Enter recipe"
-                    />
-                    <button
-                        type="submit"
-                        className="ml-4 flex-shrink-0 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Find recipe
-                    </button>
-                </form>
+
             </div>
             <div className="mt-10">
                 <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">

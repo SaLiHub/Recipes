@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
-import { useActions } from "../../../hooks/redux";
+import React, { FC } from 'react';
+import { useActions, useAppSelector } from "../../../hooks/redux";
 import Modal from "../Modal";
 import ModalContentList from "../ModalContent/ModalContentList";
+import { selectRecipesModalList } from "../../../store/reducers/recipes/recipes-selectors";
 
-const ModalContainerList = () => {
+interface ModalContainerListProps {
+    isModalOpen: boolean;
+    setIsModalOpen: (open: boolean) => void
+}
+
+const ModalContainerList: FC<ModalContainerListProps> = ({isModalOpen, setIsModalOpen}) => {
 
     const {removeModalRecipes} = useActions();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const modalList = useAppSelector(selectRecipesModalList);
+    const {addRecipe} = useActions();
 
     const handleClosing = () => {
         setIsModalOpen(false);
@@ -17,7 +24,7 @@ const ModalContainerList = () => {
 
     return (
         <Modal {...{handleClosing, isModalOpen}}>
-            <ModalContentList/>
+            <ModalContentList {...{modalList, addRecipe}}/>
         </Modal>
     );
 };

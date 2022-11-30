@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useActions, useAppSelector } from "../../../hooks/redux";
 import {
     selectRecipesListItem,
@@ -17,6 +17,8 @@ const ModalContainerInfo = () => {
     const isModalOpen = useAppSelector(selectRecipesModalState);
     const recipe = useAppSelector(selectRecipesListItem);
     const index = useAppSelector(selectRecipesPaginationIndex);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
 
     let dish;
     if (recipe.recipes === undefined) {
@@ -25,6 +27,10 @@ const ModalContainerInfo = () => {
         dish = recipe.recipes[index];
 
     }
+
+    useEffect(() => {
+        if (videoRef.current !== null) videoRef.current.load();
+    }, [dish.original_video_url]);
 
 
     const createNutrition = (obj: Nutrition) => {
@@ -45,7 +51,7 @@ const ModalContainerInfo = () => {
 
     return (
         <Modal {...{handleClosing: closeItemModal, isModalOpen,}}>
-            <ModalContentInfo {...{recipe: dish, createNutrition}}/>
+            <ModalContentInfo {...{recipe: dish, createNutrition, videoRef}}/>
             {recipe.recipes !== undefined
                 ? <Pagination length={recipe.recipes.length}/>
                 : ''
