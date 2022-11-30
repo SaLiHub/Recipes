@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { RecipeData } from "../../types";
-import Search from "./Search";
+import Search from "../Search/Search";
 import Item from "./Item";
 import ModalContainerInfo from "../Modal/ModalContainer/ModalContainerInfo";
 
@@ -10,14 +10,14 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({list, handleAddClick}) => {
-
+    console.log('list')
     return (
         <div className="px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
                     <h1 className="text-xl font-semibold text-gray-900">Recipes</h1>
                     <p className="mt-2 text-sm text-gray-700">
-                        A list of all the recipes.
+                        Your list of recipes.
                     </p>
                 </div>
                 <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -75,4 +75,11 @@ const List: FC<ListProps> = ({list, handleAddClick}) => {
     );
 };
 
-export default List;
+
+function areEqual(prevProps: ListProps, nextProps: ListProps) {
+    return prevProps.list.length === nextProps.list.length;
+}
+
+const MemoizedList = React.memo(List, areEqual);
+
+export default MemoizedList;

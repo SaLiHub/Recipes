@@ -16,7 +16,6 @@ const Item: FC<ItemProps> = ({recipe, i}) => {
         openItemModal(i);
     }
 
-    console.log(recipe)
 
     return (
         <tr>
