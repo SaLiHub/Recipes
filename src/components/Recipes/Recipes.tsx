@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 import EmptyState from "./EmptyState";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchModalRecipesData } from "../../store/reducers/recipes/recipes-reducer";
-import List from "./List";
+import List from "../List/List";
 import { selectRecipesFilteredList, selectRecipesList } from "../../store/reducers/recipes/recipes-selectors";
 import ModalContainerList from "../Modal/ModalContainer/ModalContainerList";
+import { getRandomInt } from "../../helpers/helpers";
 
 const Recipes = () => {
 
@@ -16,7 +17,10 @@ const Recipes = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleAddClick = () => {
-        dispatch(fetchModalRecipesData);
+        dispatch(fetchModalRecipesData({
+            url: 'https://tasty.p.rapidapi.com/recipes/list',
+            params: {from: String(getRandomInt()), size: '4'}
+        }));
         setIsModalOpen(true);
     }
 
