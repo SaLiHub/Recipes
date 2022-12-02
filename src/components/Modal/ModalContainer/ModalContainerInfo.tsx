@@ -53,7 +53,7 @@ const ModalContainerInfo = () => {
         <Modal {...{handleClosing: closeItemModal, isModalOpen,}}>
             <ModalContentInfo {...{recipe: dish, createNutrition, videoRef}}/>
             {recipe.recipes !== undefined
-                ? <Pagination length={recipe.recipes.length}/>
+                ? <Pagination length={recipe.recipes.length} index={index}/>
                 : ''
             }
         </Modal>
